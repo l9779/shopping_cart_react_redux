@@ -1,4 +1,36 @@
-const CartItem = (props) => {
-  return <div>https://youtu.be/2-crBg6wpp0?t=46742</div>;
+import { useDispatch } from 'react-redux';
+
+import { ChevronDown, ChevronUp } from '../icons';
+import { removeItem, changeAmount } from '../features/cart/cartSlice';
+
+const CartItem = ({ id, title, price, img, amount }) => {
+  const dispatch = useDispatch();
+
+  return (
+    <article className='cart-item'>
+      <img src={img} alt={title} />
+      <div>
+        <h4>{title}</h4>
+        <h4 className='item-price'>${price}</h4>
+        <button
+          className='remove-btn'
+          onClick={() => {
+            dispatch(removeItem(id));
+          }}
+        >
+          remove
+        </button>
+      </div>
+      <div>
+        <button className='amount-btn' onClick={changeAmount(id)}>
+          <ChevronUp />
+        </button>
+        <p className='amount'>{amount}</p>
+        <button className='amount-btn' onClick={changeAmount(id)}>
+          <ChevronDown />
+        </button>
+      </div>
+    </article>
+  );
 };
 export default CartItem;
